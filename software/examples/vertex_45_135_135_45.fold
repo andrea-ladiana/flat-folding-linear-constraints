@@ -1,0 +1,88 @@
+{
+ "file_spec": 1.1,
+ "file_creator": "linfold",
+ "file_classes": [
+  "singleModel"
+ ],
+ "frame_title": "Example 3: labels allowed by every linear constraint, not flat-foldable",
+ "frame_classes": [
+  "creasePattern"
+ ],
+ "frame_attributes": [
+  "2D"
+ ],
+ "vertices_coords": [
+  [
+   -1.0,
+   -1.0
+  ],
+  [
+   1.0,
+   -1.0
+  ],
+  [
+   1.0,
+   1.0
+  ],
+  [
+   -1.0,
+   1.0
+  ],
+  [
+   0.0,
+   0.0
+  ],
+  [
+   -1.0,
+   1.2246467991473532e-16
+  ],
+  [
+   1.0,
+   -2.4492935982947064e-16
+  ]
+ ],
+ "edges_vertices": [
+  [
+   0,
+   1
+  ],
+  [
+   1,
+   2
+  ],
+  [
+   2,
+   3
+  ],
+  [
+   0,
+   3
+  ],
+  [
+   2,
+   4
+  ],
+  [
+   4,
+   5
+  ],
+  [
+   1,
+   4
+  ],
+  [
+   4,
+   6
+  ]
+ ],
+ "edges_assignment": [
+  "B",
+  "B",
+  "B",
+  "B",
+  "V",
+  "M",
+  "V",
+  "V"
+ ]
+}

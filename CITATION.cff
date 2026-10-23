@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this software or the formalization, please cite the paper below."
+type: software
+title: "Maekawa's theorem and the linear constraints of flat folding: software (linfold) and Lean formalization"
+version: "0.1.0"
+date-released: "2026-10-23"
+license: Apache-2.0
+repository-code: "https://github.com/andrea-ladiana/flat-folding-linear-constraints"
+authors:
+  - family-names: Ladiana
+    given-names: Andrea
+    affiliation: "Sapienza University of Rome"
+    orcid: "https://orcid.org/0009-0005-5078-9817"
+keywords:
+  - origami
+  - flat folding
+  - Maekawa's theorem
+  - crease pattern
+  - linear algebra over F2
+  - persistent homology
+  - Lean 4
+  - Mathlib
+preferred-citation:
+  type: article
+  status: preprint
+  title: "Maekawa's theorem and the linear constraints of flat folding"
+  authors:
+    - family-names: Ladiana
+      given-names: Andrea
+      affiliation: "Sapienza University of Rome"
+      orcid: "https://orcid.org/0009-0005-5078-9817"
+  year: 2026
+  url: "https://github.com/andrea-ladiana/flat-folding-linear-constraints"

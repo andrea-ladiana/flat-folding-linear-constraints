@@ -1,0 +1,42 @@
+name: software
+
+on:
+  push:
+    paths: ["software/**", ".github/workflows/software.yml"]
+  pull_request:
+    paths: ["software/**", ".github/workflows/software.yml"]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Python ${{ matrix.python }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.9", "3.12", "3.13"]
+    defaults:
+      run:
+        working-directory: software
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: python -m pip install ".[test]"
+      - name: Tests
+        run: python -m pytest -q
+      - name: Command line on the examples
+        shell: bash
+        run: |
+          linfold --version
+          linfold vertex 40 70 100 60 40 50 --mv MMMMVV > /dev/null
+          for f in examples/*.fold examples/*.cp examples/*.opx examples/*.svg; do
+            set +e; linfold check "$f" > /dev/null; code=$?; set -e
+            echo "$f -> exit $code"
+            if [ "$code" -eq 1 ]; then exit 1; fi
+          done
+          linfold check examples/triangle.fold --certificate cert.json > /dev/null || true
+          linfold verify cert.json --pattern examples/triangle.fold

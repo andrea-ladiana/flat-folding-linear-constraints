@@ -1,0 +1,35 @@
+name: lean
+
+on:
+  push:
+    paths: ["lean/**", ".github/workflows/lean.yml"]
+  pull_request:
+    paths: ["lean/**", ".github/workflows/lean.yml"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and check axioms
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build (Lean, Mathlib cache)
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: lean
+          use-mathlib-cache: true
+      - name: No sorry, standard axioms only
+        working-directory: lean
+        run: |
+          lake env lean Axioms.lean | tee axioms.txt
+          python3 - <<'EOF'
+          import re, sys
+          text = open("axioms.txt").read()
+          allowed = {"propext", "Classical.choice", "Quot.sound"}
+          found = re.findall(r"depends on axioms: \[([^\]]*)\]", text, re.S)
+          n_free = text.count("does not depend on any axioms")
+          used = {a.strip() for group in found for a in group.split(",") if a.strip()}
+          print(f"{len(found) + n_free} theorems; axioms used: {sorted(used)}")
+          if "sorryAx" in text or not used <= allowed or len(found) + n_free < 30:
+              sys.exit("unexpected axioms, or theorems missing")
+          EOF
